@@ -4,6 +4,6 @@ RUN mkdir -p /usr/src/app
 EXPOSE 80
 WORKDIR /usr/src/app
 ADD package.json /usr/src/app/
-RUN npm install --production
+RUN npm install --prod
 ADD . /usr/src/app/
 ENTRYPOINT ["npm", "start"]
