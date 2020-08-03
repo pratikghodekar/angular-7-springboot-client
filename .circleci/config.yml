@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    docker:
+       - image: circleci/node:9.9.0
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: build
+          command: |
+            docker build -t pratikghodekar/nodejs-app:v2 .
+            echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
+            docker push pratikghodekar/nodejs-app:v2
+
+  deploy:
+    working_directory: ~/deploy
+    docker:
+       - image: ansible/ansible:ubuntu1604
+    steps:
+      - checkout
+      - run:
+          name: deploy
+          command: |
+            echo "deploying build"
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+           requires:
+              - build
+           filters:
+            branches:
+              only: master
