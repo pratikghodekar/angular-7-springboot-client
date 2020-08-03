@@ -12,7 +12,7 @@ jobs:
           command: |
             docker build -t pratikghodekar/nodejs-app:v2 .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
-            docker push pratikghodekar/nodejs-app:v2
+            docker push pratikghodekar/nodejs-app:$CIRCLE_SHA1
 
   deploy:
     working_directory: ~/deploy
