@@ -4,7 +4,7 @@ RUN mkdir -p /usr/src/app
 EXPOSE 80
 WORKDIR /usr/src/app
 ADD package.json /usr/src/app/
-RUN npm install --prod
+RUN npm install
 ADD . /usr/src/app/
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 ENTRYPOINT ["npm", "start"]
