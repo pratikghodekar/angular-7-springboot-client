@@ -32,5 +32,10 @@ pipeline {
                 sh "echo \"deploy\""
             }
         }
+	stage('mail') {
+	    steps {
+	    	sh "echo \"mail sent\""
+	    }
+	}
     }    
 }
